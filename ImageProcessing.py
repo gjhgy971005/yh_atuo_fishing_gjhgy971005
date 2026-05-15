@@ -179,7 +179,7 @@ class TemplateMatcher:
             return False, None
 
 # ==============================================
-# 类 - OCR处理模块（检查鱼体力等级）
+# 类 - OCR处理模块
 # ==============================================
 class CheckFishLevel:
     def __init__(self,screenshots_sent,fishing_bot_ref):
@@ -290,9 +290,6 @@ class CheckSlider:
             self.area["left"]:self.area["left"] + self.area["width"]
         ]
 
-        # 抑制随机噪点
-        # crop = cv2.GaussianBlur(crop, (3, 3), 0)
-
         hsv = cv2.cvtColor(crop, cv2.COLOR_BGR2HSV)
 
         # 红色掩码
@@ -322,7 +319,6 @@ class CheckSlider:
         b_points = np.where(mask_blue > 0)
         return y_points, b_points
 
-    # 可把这个辅助方法加到类里
     @staticmethod
     def filter_small_blobs(mask, min_area=100):
         num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(mask, connectivity=8)
