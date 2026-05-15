@@ -64,12 +64,12 @@ class Window(MSFluentWindow):
         self.style().unpolish(self)
         self.style().polish(self)
 
-        # 刷新内容区域（QStackedWidget 及其子页面）
+        # 刷新内容区域
         if self.content_widget:
             self.content_widget.style().unpolish(self.content_widget)
             self.content_widget.style().polish(self.content_widget)
 
-        # 让当前显示的页面也重新应用样式
+        # 让当前页面也重新应用
         current_page = self.content_widget.currentWidget()
         if current_page:
             current_page.style().unpolish(current_page)
