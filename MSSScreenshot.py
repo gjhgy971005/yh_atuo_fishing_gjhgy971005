@@ -9,10 +9,6 @@ import ctypes
 from typing import Optional, Callable
 
 class BackgroundCaptureThread(threading.Thread):
-    """
-    基于 PrintWindow 的后台截图线程
-    限制帧率约 20 FPS（可调节 interval）
-    """
 
     def __init__(self, hwnd: int, capture_client: bool = True, interval: float = 0.05,
                  frame_callback: Optional[Callable[[np.ndarray], None]] = None):
@@ -99,7 +95,7 @@ class BackgroundCaptureThread(threading.Thread):
             bitmap.CreateCompatibleBitmap(mfc_dc, width, height)
             save_dc.SelectObject(bitmap)
 
-            # 调用 PrintWindow，参数 3 = PW_RENDERFULLCONTENT (Windows 8+)
+            # 调用 PrintWindow
             result = ctypes.windll.user32.PrintWindow(hwnd, save_dc.GetSafeHdc(), 3)
             if result == 0:
                 return None
@@ -112,7 +108,7 @@ class BackgroundCaptureThread(threading.Thread):
             print(f"[PrintWindow] 失败: {e}")
             return None
         finally:
-            # 释放 GDI 资源
+            # 释放资源
             if bitmap:
                 try:
                     win32gui.DeleteObject(bitmap.GetHandle())
