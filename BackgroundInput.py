@@ -3,7 +3,7 @@ import win32con
 import win32gui
 from typing import Optional
 
-# ========== 按键映射表 ==========
+# 按键映射表
 VK_MAP = {
     # 功能键
     'esc': win32con.VK_ESCAPE,
@@ -43,10 +43,6 @@ MK_LBUTTON = win32con.MK_LBUTTON
 MK_RBUTTON = win32con.MK_RBUTTON
 MK_MBUTTON = win32con.MK_MBUTTON
 
-# 发送消息时的超时设置（毫秒）
-MSG_TIMEOUT = 100
-
-
 def _get_vk(key: str) -> Optional[int]:
 
     key_lower = key.lower()
@@ -56,7 +52,7 @@ def _get_vk(key: str) -> Optional[int]:
         return ord(key.upper())
     return None
 
-# ---------- 键盘操作 ----------
+# 键盘操作
 def press(key: str, hwnd: int, times: int = 1, interval: float = 0.1, delay: float = 0.05):
 
     vk = _get_vk(key)
